@@ -66,7 +66,7 @@ class PrioReplayBuffer:
         self.pos = 0
         self.prob_alpha = 0.6
         self.beta_start = 0.4
-        self.beta_frames = 100000
+        self.beta_frames = 10000
         self.beta_idx = 0
         self.capacity = buffer_size
     
