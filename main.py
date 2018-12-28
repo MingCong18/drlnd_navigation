@@ -72,8 +72,10 @@ def main(args):
     # Initialize the agent 
     agent = Agent(state_size=state_size, action_size=action_size, args=args, seed=18)
 
+    # Start the training
     train(env, agent, brain_name, args.checkpoint_path)
 
+    # Close the env after the training
     env.close()
 
 

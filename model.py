@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class QNetwork(nn.Module):
-    """Actor (Policy) Model."""
+    """Basic DQN Model."""
 
     def __init__(self, state_size, action_size, seed, fc1_units=128, fc2_units=128):
         """Initialize parameters and build model.
@@ -51,8 +51,8 @@ class DuelingDQN(nn.Module):
         self.fc3_val = nn.Linear(fc2_units, 1)
 
     def forward(self, state):
-        """Build a network that maps state -> action values."""
-        x = F.relu(self.fc1_val(state))
+        """Build a network that maps state -> action values and advantage values"""
+        x = F.relu(self.fc1(state))
         x_val = F.relu(self.fc2_val(x))
         x_val = self.fc3_val(x_val)
         x_adv = F.relu(self.fc2_adv(x))
