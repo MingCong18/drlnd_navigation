@@ -43,15 +43,19 @@ class DuelingDQN(nn.Module):
         """
         super(DuelingDQN, self).__init__()
         self.seed = torch.manual_seed(seed)
+
         self.fc1 = nn.Linear(state_size, fc1_units)
-        self.fc2 = nn.Linear(fc1_units, fc2_units)
-        self.fc3 = nn.Linear(fc2_units, 1)
-        self.fc4 = nn.Linear(fc2_units, action_size)
+        self.fc2_adv = nn.Linear(fc1_units, fc2_units)
+        self.fc3_adv = nn.Linear(fc2_units, action_size)
+        self.fc2_val = nn.Linear(fc1_units, fc2_units)
+        self.fc3_val = nn.Linear(fc2_units, 1)
 
     def forward(self, state):
         """Build a network that maps state -> action values."""
-        x = F.relu(self.fc1(state))
-        x = F.relu(self.fc2(x))
-        val = self.fc3(x)
-        adv = self.fc4(x)
-        return val + adv - adv.mean()
+        x = F.relu(self.fc1_val(state))
+        x_val = F.relu(self.fc2_val(x))
+        x_val = self.fc3_val(x_val)
+        x_adv = F.relu(self.fc2_adv(x))
+        x_adv = self.fc3_adv(x_adv)
+
+        return x_val + x_adv - x_adv.mean()

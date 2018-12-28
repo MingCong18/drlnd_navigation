@@ -80,12 +80,13 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Drlnd Navigation Project",
                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--env_path', default="/Users/mcong/deep-reinforcement-learning/p1_navigation/Banana.app", 
+    parser.add_argument('--env_path', default="Banana.app", 
         help='environment name')
-    parser.add_argument('--checkpoint_path', type=str, default='checkpoints/checkpoint_dqn.pth', 
+    parser.add_argument('--checkpoint_path', type=str, default='checkpoint_dqn.pth', 
         help='checkpoint path to save')
     parser.add_argument('--ddqn', action='store_true', help='whether to train Double DQN')
     parser.add_argument('--dueling', action='store_true', help='whether to train Dueling DQN')
+    parser.add_argument('--prio', action='store_true', help='whether to prioritized replay buffer')
 
     args = parser.parse_args()
 
